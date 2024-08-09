@@ -1,3 +1,4 @@
+
 # LokasWiki Actions 🚀
 
 The [LokasWiki Actions](https://github.com/LokasWiki/actions.git) repository contains a collection of GitHub Actions workflows and scripts designed to automate various tasks related to the LokasBot bot. These workflows are used to manage deployments, automate testing, and handle other repetitive tasks efficiently.
@@ -73,6 +74,37 @@ Configuration of GitHub Actions can be done via the workflow YAML files located 
 
 - **`.github/workflows/main.yml`**: Main workflow file for automated tasks.
 - **`.github/actions/setup.sh`**: Script for setting up the environment.
+
+### Example Workflow: SSH Deployment 🔧
+
+The following is an example of a GitHub Actions workflow for deploying code to a server using SSH:
+
+```yaml
+name: add_ssh_deploy_server.yml
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to server (lokasbot)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          request_pty: true
+          script_stop: true
+          key: ${{ secrets.KEY }}
+          script: |
+            become lokasbot sh -c "rm -rf action_temp; git clone https://github.com/LokasWiki/actions.git action_temp; chmod +x action_temp/lokasbot/pull.sh; action_temp/lokasbot/pull.sh"
+            become lokasbot2 sh -c "rm -rf action_temp; git clone https://github.com/LokasWiki/actions.git action_temp; chmod +x action_temp/lokasbot2/pull.sh; action_temp/lokasbot2/pull.sh"
+```
+
+This workflow will deploy the latest changes from the `main` branch to the specified servers using SSH. It ensures that the code is up-to-date and ready for use.
 
 ## Contributing 🌟
 
