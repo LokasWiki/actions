@@ -22,24 +22,25 @@ To install and set up the actions from this repository on your server, follow th
 
 ### 1. Create the Actions Directory 📂
 
-1. **Navigate to Your Project Directory**:
-   Change to the directory where you want to set up the actions:
+1. **Navigate to Your Tool**:
+   Change to the tool where you want to set up the actions:
    ```bash
+   become lokasbot
    cd $HOME
    ```
 
-2. **Create the `.github/workflows` Directory**:
-   This directory will contain the GitHub Actions workflow files:
+2. **Remove the Existing `actions` Directory**:
+   Remove any existing directory to ensure a clean setup:
    ```bash
-   mkdir -p .github/workflows
+   rm -rf $HOME/actions
    ```
 
 ### 2. Clone the Repository 📥
 
 1. **Clone the LokasWiki Actions Repository**:
-   Clone the repository containing the actions workflows into the `.github` directory:
+   Clone the repository containing the actions workflows into the `actions` directory:
    ```bash
-   git clone https://github.com/LokasWiki/actions.git .github/actions
+   git clone https://github.com/LokasWiki/actions.git $HOME/actions
    ```
 
 ### 3. Make the Scripts Executable ✔️
@@ -47,7 +48,7 @@ To install and set up the actions from this repository on your server, follow th
 1. **Set Execute Permissions**:
    Change permissions of the scripts to make them executable:
    ```bash
-   chmod -R +x .github/actions
+   chmod -R +x $HOME/actions
    ```
 
 ### 4. Configure GitHub Actions ⚙️
