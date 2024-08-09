@@ -11,6 +11,7 @@ echo "All running jobs have been stopped."
 # directory from your home directory.
 echo "Removing the old repository directory..."
 rm -fdr repos
+rm -fdr setup-venvs.err setup-venvs.out 
 echo "Old repository directory has been removed."
 
 # 3. Clone the main repository along with its submodules into the specified directory.
@@ -43,6 +44,7 @@ echo "Toolforge job for setup-venvs has been started."
 # or ensuring that the setup completes successfully. The command will stop automatically
 # once the end message "end setup lokas-bot-scripts" is found in the logs.
 echo "Displaying logs of the setup-venvs job..."
+sleep 120
 tail -f setup-venvs.* | awk '/end setup lokas-bot-scripts/ {exit}'
 
 # 7. Set read, write, and execute permissions for the user and group on all files in the repos directory.
