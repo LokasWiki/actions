@@ -75,5 +75,5 @@ echo "Cron jobs have been loaded."
 # meaning the script will wait for the job to complete before proceeding. This is useful 
 # for immediate feedback and validation.
 echo "Running a test job to verify the code was pulled successfully..."
-toolforge-jobs run script --command $HOME/repos/toolforge/jobs/test-pull.sh --image tf-python39 --wait
+toolforge-jobs run script --command $HOME/repos/toolforge/jobs/ci_cd_log_task.sh --image tf-python39 --wait
 echo "Test job has completed."
