@@ -38,11 +38,12 @@ toolforge-jobs run setup-venvs --command $HOME/repos/toolforge/bin/setup-venvs.s
 echo "Toolforge job for setup-venvs has been started."
 
 # 6. Display the logs of the setup-venvs job in real-time.
-# By following the log file with tail -f, you can monitor the progress and output of 
-# the setup-venvs job as it happens. This is useful for debugging or ensuring that 
-# the setup completes successfully.
+# By following the log file with tail -f and monitoring for the specific end message,
+# you can view the progress and output of the setup-venvs job. This is useful for debugging 
+# or ensuring that the setup completes successfully. The command will stop automatically
+# once the end message "end setup lokas-bot-scripts" is found in the logs.
 echo "Displaying logs of the setup-venvs job..."
-tail -f $HOME/setup-venvs.*
+tail -f $HOME/setup-venvs.* | awk '/end setup lokas-bot-scripts/ {exit}'
 
 # 7. Set read, write, and execute permissions for the user and group on all files in the repos directory.
 # This command ensures that all files and directories within the repos directory have the 
