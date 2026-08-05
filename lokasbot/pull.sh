@@ -30,22 +30,16 @@ echo "Making the setup-venvs.sh script executable..."
 chmod ug+x repos/toolforge/bin/setup-venvs.sh
 echo "Script setup-venvs.sh is now executable."
 
-# 5. Start a Toolforge job to run the setup-venvs script.
+# 5. Start a Toolforge job to run the setup-venvs script and wait for it to finish.
 # This command initiates a job on the Toolforge server to execute the setup-venvs.sh script 
 # within a Python 3.9 environment. This step is critical for setting up the virtual 
 # environments required by your project.
+# The --wait flag blocks until the job ends, so the deploy cannot hang forever waiting
+# for a log sentinel that may never appear (an orphaned pull.sh stuck in tail -f held
+# NFS files open and broke every subsequent deployment with "Device or resource busy").
 echo "Starting a Toolforge job to run the setup-venvs script..."
-toolforge-jobs run setup-venvs --command repos/toolforge/bin/setup-venvs.sh --image tf-python39
-echo "Toolforge job for setup-venvs has been started."
-
-# 6. Display the logs of the setup-venvs job in real-time.
-# By following the log file with tail -f and monitoring for the specific end message,
-# you can view the progress and output of the setup-venvs job. This is useful for debugging 
-# or ensuring that the setup completes successfully. The command will stop automatically
-# once the end message "end setup lokas-bot-scripts" is found in the logs.
-echo "Displaying logs of the setup-venvs job..."
-sleep 120
-tail -f setup-venvs.* | awk '/end setup lokas-bot-scripts/ {exit}'
+toolforge-jobs run setup-venvs --command repos/toolforge/bin/setup-venvs.sh --image tf-python39 --wait
+echo "Toolforge job for setup-venvs has completed."
 
 # 7. Set read, write, and execute permissions for the user and group on all files in the repos directory.
 # This command ensures that all files and directories within the repos directory have the 
