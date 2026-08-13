@@ -38,7 +38,7 @@ echo "Script setup-venvs.sh is now executable."
 # for a log sentinel that may never appear (an orphaned pull.sh stuck in tail -f held
 # NFS files open and broke every subsequent deployment with "Device or resource busy").
 echo "Starting a Toolforge job to run the setup-venvs script..."
-toolforge-jobs run setup-venvs --command repos/toolforge/bin/setup-venvs.sh --image tf-python39 --wait
+toolforge-jobs run setup-venvs --command repos/toolforge/bin/setup-venvs.sh --image python3.13 --wait
 echo "Toolforge job for setup-venvs has completed."
 
 # 7. Set read, write, and execute permissions for the user and group on all files in the repos directory.
@@ -71,7 +71,7 @@ echo "Cron jobs have been loaded."
 # meaning the script will wait for the job to complete before proceeding. This is useful 
 # for immediate feedback and validation.
 echo "Running a test job to verify the code was pulled successfully..."
-toolforge-jobs run script --command repos/toolforge/jobs/ci_cd_log_task.sh --image tf-python39 --wait
+toolforge-jobs run script --command repos/toolforge/jobs/ci_cd_log_task.sh --image python3.13 --wait
 echo "Test job has completed."
 
 
